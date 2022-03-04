@@ -12,6 +12,7 @@ ME_URL = reverse('user:me')
 
 
 def create_user(**params):
+    """Helper function to create new user"""
     return get_user_model().objects.create_user(**params)
 
 
@@ -95,11 +96,11 @@ class PublicUserApiTests(TestCase):
         self.assertNotIn('token', res.data)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_retrieve_user_unautherized(self):
+    def test_retrieve_user_unauthorized(self):
         '''Test that authentication is required for users'''
         res = self.client.get(ME_URL)
 
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHERIZED)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateUserApiTests(TestCase):
@@ -109,7 +110,7 @@ class PrivateUserApiTests(TestCase):
         self.user = create_user(
             email='test@pisoft.tech',
             password='testpass',
-            name='name'
+            name='fname'
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
@@ -124,8 +125,8 @@ class PrivateUserApiTests(TestCase):
             'email': self.user.email
         })
 
-    def test_post_me_not_allowedd(self):
-        '''Test tha POST is not allowed on me url'''
+    def test_post_me_not_allowed(self):
+        '''Test that POST is not allowed on me url'''
         res = self.client.post(ME_URL, {})
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
