@@ -25,7 +25,7 @@ class PublicUserApiTests(TestCase):
         payload = {
             'email': 'test@pisoft.tech',
             'password': 'testpass',
-            'name': 'Test name'
+            'name': 'Test name',
         }
         res = self.client.post(CREATE_USER_URL, payload)
 
@@ -38,8 +38,8 @@ class PublicUserApiTests(TestCase):
         '''Test creating user that already exist fails'''
         payload = {
             'email': 'test@pisoft.tech',
-            'password': 'password',
-            'name': 'Test name'
+            'password': 'pass',
+            'name': 'Test name',
         }
         create_user(**payload)
 
