@@ -1,5 +1,3 @@
-from enum import unique
-from statistics import mode
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
